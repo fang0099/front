@@ -31,6 +31,85 @@
 
   <link href="./css/36kr_common.css" rel="stylesheet" /> 
   <link href="./css/36kr_app.css" rel="stylesheet" /> 
+
+    <link href="./css/beta_mine.css" rel="stylesheet" /> 
+    <!-- Styles -->
+    <link rel="stylesheet" type="text/css" href="plugins/Viima-jquery-comments/css/jquery-comments.css">
+    <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+
+    <!-- Data -->
+    <script type="text/javascript" src="plugins/Viima-jquery-comments/data/comments-data.js"></script>
+
+    <!-- Libraries -->
+    <script src="http://cdn.bootcss.com/jquery/2.2.4/jquery.js"></script>
+    <!--<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script>-->
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery.textcomplete/1.8.0/jquery.textcomplete.js"></script>
+    <script type="text/javascript" src="plugins/Viima-jquery-comments/js/jquery-comments.js"></script>
+    <script type="text/javascript" src="plugins/jquery-pin/jquery.pin.js"></script>
+    <script type="text/javascript">
+      $(function() {
+        var saveComment = function(data) {
+
+          // Convert pings to human readable format
+          $(data.pings).each(function(index, id) {
+            var user = usersArray.filter(function(user){return user.id == id})[0];
+            data.content = data.content.replace('@' + id, '@' + user.fullname);
+          });
+
+          return data;
+        }
+        $('#comments-container').comments({
+          profilePictureURL: 'https://viima-app.s3.amazonaws.com/media/user_profiles/user-icon.png',
+          currentUserId: 1,
+          roundProfilePictures: true,
+          textareaRows: 1,
+          //enableAttachments: true,
+          enableHashtags: true,
+          enablePinging: true,
+          getUsers: function(success, error) {
+            setTimeout(function() {
+              success(usersArray);
+            }, 500);
+          },
+          getComments: function(success, error) {
+            setTimeout(function() {
+              success(commentsArray);
+            }, 500);
+          },
+          postComment: function(data, success, error) {
+            setTimeout(function() {
+              success(saveComment(data));
+            }, 500);
+          },
+          putComment: function(data, success, error) {
+            setTimeout(function() {
+              success(saveComment(data));
+            }, 500);
+          },
+          deleteComment: function(data, success, error) {
+            setTimeout(function() {
+              success();
+            }, 500);
+          },
+          upvoteComment: function(data, success, error) {
+            setTimeout(function() {
+              success(data);
+            }, 500);
+          },
+          uploadAttachments: function(dataArray, success, error) {
+            setTimeout(function() {
+              success(dataArray);
+            }, 500);
+          },
+        });
+
+        $(".pin-wrapper").pin({
+          containerSelector: ".rightlib"
+        });
+      });
+    </script>
+
+
  </head> 
  <body> 
   <!--模板开始--> 
@@ -210,19 +289,7 @@
             <div></div>
             <div class="mobile_article">
              <section class="single-post-comment">
-              <h4><a name="comment">参与讨论</a></h4>
-              <div class="input-module notlogin">
-               <textarea id="J_comment_area_5061570" disabled="" placeholder="请登录后参与评论..."></textarea>
-               <div class="user">
-                <button type="button" disabled="" title="请登录后参与评论"><a data-stat-click="pinglun.fabupinglun" href="http://passport.36kr.com/pages/?ok_url=http://36kr.com%2Fp%2F5061570.html">提交评论</a></button>
-                <div class="current-user">
-                 <span class="img" style="background: url(&quot;http://krplus-pic.b0.upaiyun.com/201601/28103657/f3a5016d8jzc4auz.png&quot;) center center / 80% no-repeat rgb(241, 241, 241);"></span>
-                 <a href="http://passport.36kr.com/pages/?ok_url=http://36kr.com%2Fp%2F5061570.html" class="name">登录</a>
-                 <span>后参与讨论</span>
-                </div>
-               </div>
-              </div>
-              <div class="display-module"></div>
+              <div id="comments-container"></div>
              </section>
             </div>
             <div class="related-articles-h5">
@@ -336,6 +403,45 @@
           <div class="plan-image plan-lazyload-box" data-adid="33" data-name="right_ad_img2"></div>
           <!-- react-empty: 192 -->
           <div class="pin-wrapper" style="height: 520px;">
+           <div class="custom-pin-wrapper" style="width: 320px;">
+            <div>
+             <div class="guess-posts-list">
+              <h4>拓展阅读</h4>
+              <ul>
+               <li class="top" data-index="1"><a href="http://36kr.com/p/5052642.html?from=related" target="_blank" class="item" data-stat-click="articles.related.1"><span class="desc">期权池的正确打开方式</span></a></li>
+               <li class="top" data-index="2"><a href="http://36kr.com/p/5059812.html?from=related" target="_blank" class="item" data-stat-click="articles.related.2"><span class="desc">创业中，如果你想退出怎么办？</span></a></li>
+               <li class="top" data-index="3"><a href="http://36kr.com/p/5060592.html?from=related" target="_blank" class="item" data-stat-click="articles.related.3"><span class="desc">2016 年投资方向转变：从商业模式投资转向技术投资</span></a></li>
+               <li class="top" data-index="4"><a href="http://36kr.com/p/5060903.html?from=related" target="_blank" class="item" data-stat-click="articles.related.4"><span class="desc">2017年，投资人应关注哪些海外新兴市场？</span></a></li>
+               <li class="top" data-index="5"><a href="http://36kr.com/p/5061117.html?from=related" target="_blank" class="item" data-stat-click="articles.related.5"><span class="desc">2016年新三板十大夭折定增：300亿定增一笑而过，“专情”却被放鸽子</span></a></li>
+               <li class="top" data-index="6"><a href="http://36kr.com/p/5061121.html?from=related" target="_blank" class="item" data-stat-click="articles.related.6"><span class="desc">去“独角兽”公司工作好不好？</span></a></li>
+              </ul>
+             </div>
+            </div>
+            <div class="sponsor" style="display: none;">
+             <h5><span>赞助商</span></h5>
+             <ul class="am-list am-list-static">
+              <li></li>
+              <li> </li>
+              <li> </li>
+             </ul>
+            </div>
+            <div class="next-post-wrapper show">
+             <h4>下一篇</h4>
+             <div class="item" data-stat-click="articles.next">
+              <a href="http://36kr.com/p/5061577.html?from=next" class="title" target="_blank">支付宝回应熟人可修改密码漏洞：仅在特定情况下可行，已提高安全等级</a>
+              <div class="tags-list">
+               <i class="icon-tag"></i>
+               <span><a href="http://36kr.com/tag/%E9%87%91%E8%9E%8D" target="_blank">金融</a><span>，</span></span>
+               <span><a href="http://36kr.com/tag/%E5%AA%92%E4%BD%93" target="_blank">媒体</a><span>，</span></span>
+               <span><a href="http://36kr.com/tag/%E6%94%AF%E4%BB%98%E5%AE%9D" target="_blank">支付宝</a></span>
+              </div>
+             </div>
+            </div>
+           </div>
+          </div>
+         </div>
+         <div class="pad_inner pad_inner2">
+            <div class="pin-wrapper" style="height: 520px;">
            <div class="custom-pin-wrapper" style="width: 320px;">
             <div>
              <div class="guess-posts-list">
